@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -56,8 +57,8 @@ export default function ConfigPanel({
     return (
       <aside className="w-80 border-l bg-card p-4 shrink-0 hidden md:flex flex-col items-center justify-center text-center">
          <Settings className="w-12 h-12 text-muted-foreground/50 mb-4" />
-        <h3 className="text-lg font-semibold text-muted-foreground">Select a component</h3>
-        <p className="text-sm text-muted-foreground/80">Select a component on the canvas to view and edit its properties.</p>
+        <h3 className="text-lg font-semibold text-muted-foreground">Select an item</h3>
+        <p className="text-sm text-muted-foreground/80">Select a component or pathway on the canvas to view and edit its properties.</p>
       </aside>
     );
   }
@@ -173,3 +174,5 @@ export default function ConfigPanel({
     </aside>
   );
 }
+
+    

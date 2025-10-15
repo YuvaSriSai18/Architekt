@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview A flow that generates an initial system architecture diagram from a text prompt.
@@ -30,7 +31,7 @@ const prompt = ai.definePrompt({
   output: {schema: GenerateInitialDesignFromPromptOutputSchema},
   prompt: `You are a system architect expert. You will generate a system architecture design in JSON format based on the user's prompt. The JSON should represent the nodes and edges of a directed graph.
 
-The available component types are: 'load-balancer', 'web-server', 'cache', 'database', 'message-queue', 'cdn', 'api-gateway', 'auth-service', 'object-storage'.
+The available component types are: 'load-balancer', 'web-server', 'cache', 'database', 'message-queue', 'cdn', 'api-gateway', 'auth-service', 'object-storage', 'firewall', 'vpn-gateway', 'client-device', 'ci-cd-pipeline', 'graphql-api'.
 
 The JSON structure must conform to the following schema:
 {
@@ -43,7 +44,7 @@ The JSON structure must conform to the following schema:
         "label": "Component Label",
         "type": "component-type", // e.g., 'load-balancer'
         "config": {
-          // component-specific config
+          // component-specific config with default values
         }
       }
     }
@@ -59,10 +60,12 @@ The JSON structure must conform to the following schema:
 
 - Each node must have a unique 'id' starting with 'dnd-node_'.
 - Each node's 'type' must be 'default'.
-- 'position' should be approximated to lay out the components logically.
+- 'position' should be approximated to lay out the components logically. For example, a client device should be at the top, followed by a load balancer, then web servers, etc.
 - The 'data.type' must be one of the available component types.
 - The 'data.config' object should contain valid configuration for the component type, with default values if not specified.
 - Each edge must have a unique 'id' and connect two nodes via 'source' and 'target'.
+- Always include a 'client-device' as the entry point for user traffic unless the prompt specifies otherwise.
+- Infer connections logically. For example, a client connects to a load balancer, which connects to web servers, which connect to a database.
 
 Generate a complete and valid JSON object for the following prompt. Do not include any explanations, just the raw JSON.
 
@@ -81,3 +84,5 @@ const generateInitialDesignFromPromptFlow = ai.defineFlow(
     return output!;
   }
 );
+
+    
