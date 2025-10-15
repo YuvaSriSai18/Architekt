@@ -14,7 +14,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { db } from "@/lib/firebase";
 import { collection, getDocs, orderBy, query, limit } from "firebase/firestore";
 import { Skeleton } from "../ui/skeleton";
-import { FolderOpen, AlertCircle } from "lucide-radix";
+import { FolderOpen, AlertCircle } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 
 type Design = {

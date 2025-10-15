@@ -5,6 +5,10 @@ import {
   CacheIcon,
   LoadBalancerIcon,
   WebQueueIcon,
+  CdnIcon,
+  ApiGatewayIcon,
+  AuthServiceIcon,
+  ObjectStorageIcon
 } from "@/components/dashboard/icons";
 
 export interface ConfigParameter {
@@ -144,5 +148,69 @@ export const COMPONENTS_SCHEMA: ComponentSchema[] = [
             description: 'How long messages are retained.'
         }
     ]
-  }
+  },
+  {
+    type: 'cdn',
+    label: 'CDN',
+    Icon: CdnIcon,
+    description: 'Content Delivery Network for caching static assets.',
+    config: [
+      {
+        id: 'provider',
+        label: 'Provider',
+        type: 'enum',
+        defaultValue: 'Cloudflare',
+        options: ['Cloudflare', 'Fastly', 'Akamai'],
+        description: 'The CDN provider.',
+      },
+    ],
+  },
+  {
+    type: 'api-gateway',
+    label: 'API Gateway',
+    Icon: ApiGatewayIcon,
+    description: 'Manages and routes API requests.',
+    config: [
+      {
+        id: 'protocol',
+        label: 'Protocol',
+        type: 'enum',
+        defaultValue: 'REST',
+        options: ['REST', 'GraphQL', 'gRPC'],
+        description: 'The API protocol.',
+      },
+    ],
+  },
+  {
+    type: 'auth-service',
+    label: 'Auth Service',
+    Icon: AuthServiceIcon,
+    description: 'Handles user authentication and authorization.',
+    config: [
+      {
+        id: 'provider',
+        label: 'Auth Provider',
+        type: 'enum',
+        defaultValue: 'Firebase Auth',
+        options: ['Firebase Auth', 'Auth0', 'Okta'],
+        description: 'The authentication service provider.',
+      },
+    ],
+  },
+  {
+    type: 'object-storage',
+    label: 'Object Storage',
+    Icon: ObjectStorageIcon,
+    description: 'Scalable storage for unstructured data.',
+    config: [
+      {
+        id: 'provider',
+        label: 'Storage Provider',
+        type: 'enum',
+        defaultValue: 'S3',
+        options: ['S3', 'Google Cloud Storage', 'Azure Blob Storage'],
+        description: 'The object storage service provider.',
+      },
+    ],
+  },
 ];

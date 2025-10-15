@@ -28,25 +28,46 @@ const prompt = ai.definePrompt({
   name: 'generateInitialDesignFromPromptPrompt',
   input: {schema: GenerateInitialDesignFromPromptInputSchema},
   output: {schema: GenerateInitialDesignFromPromptOutputSchema},
-  prompt: `You are a system architect expert. You will generate a system architecture design in JSON format based on the user's prompt. The JSON should represent the nodes and edges of a directed graph. The nodes should have an id, a type, and configuration parameters (algorithm, TTL, replicas, etc.). The edges should have a source and target node id. The JSON structure must conform to the following schema:\n\n{
+  prompt: `You are a system architect expert. You will generate a system architecture design in JSON format based on the user's prompt. The JSON should represent the nodes and edges of a directed graph.
+
+The available component types are: 'load-balancer', 'web-server', 'cache', 'database', 'message-queue', 'cdn', 'api-gateway', 'auth-service', 'object-storage'.
+
+The JSON structure must conform to the following schema:
+{
   "nodes": [
     {
-      "id": string,
-      "type": string, // Component type (e.g., 'load-balancer', 'cache', 'database')
+      "id": "dnd-node_1",
+      "type": "default",
+      "position": { "x": 100, "y": 100 },
       "data": {
-        "label": string, // Display name for the node
-        "config": object // Configuration parameters for the component
+        "label": "Component Label",
+        "type": "component-type", // e.g., 'load-balancer'
+        "config": {
+          // component-specific config
+        }
       }
     }
   ],
   "edges": [
     {
-      "id": string, // Unique edge ID
-      "source": string, // Source node ID
-      "target": string // Target node ID
+      "id": "reactflow__edge-dnd-node_1-dnd-node_2",
+      "source": "dnd-node_1",
+      "target": "dnd-node_2"
     }
   ]
-}\n\nGenerate a system architecture design in JSON format based on the following prompt:\n\nPrompt: {{{prompt}}}`,
+}
+
+- Each node must have a unique 'id' starting with 'dnd-node_'.
+- Each node's 'type' must be 'default'.
+- 'position' should be approximated to lay out the components logically.
+- The 'data.type' must be one of the available component types.
+- The 'data.config' object should contain valid configuration for the component type, with default values if not specified.
+- Each edge must have a unique 'id' and connect two nodes via 'source' and 'target'.
+
+Generate a complete and valid JSON object for the following prompt. Do not include any explanations, just the raw JSON.
+
+Prompt: {{{prompt}}}
+`,
 });
 
 const generateInitialDesignFromPromptFlow = ai.defineFlow(

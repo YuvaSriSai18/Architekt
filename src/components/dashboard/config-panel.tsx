@@ -18,18 +18,31 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { X, Settings } from "lucide-react";
+import { X, Settings, Trash2 } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 type ConfigPanelProps = {
   selectedNode: Node | null;
   onClose: () => void;
   onConfigChange: (nodeId: string, newConfig: ComponentConfig) => void;
+  onDeleteNode: (nodeId: string) => void;
 };
 
 export default function ConfigPanel({
   selectedNode,
   onClose,
   onConfigChange,
+  onDeleteNode,
 }: ConfigPanelProps) {
   const [config, setConfig] = useState<ComponentConfig>({});
 
@@ -59,12 +72,19 @@ export default function ConfigPanel({
     onConfigChange(selectedNode.id, newConfig);
   };
 
+  const handleDelete = () => {
+    if (selectedNode) {
+      onDeleteNode(selectedNode.id);
+    }
+  };
+
   const renderField = (param: ConfigParameter) => {
     const value = config[param.id];
     switch (param.type) {
       case "string":
         return (
           <Input
+            id={param.id}
             value={value as string}
             onChange={(e) => handleInputChange(param.id, e.target.value)}
           />
@@ -72,6 +92,7 @@ export default function ConfigPanel({
       case "number":
         return (
           <Input
+            id={param.id}
             type="number"
             value={value as number}
             onChange={(e) => handleInputChange(param.id, Number(e.target.value))}
@@ -83,7 +104,7 @@ export default function ConfigPanel({
             value={value as string}
             onValueChange={(val) => handleInputChange(param.id, val)}
           >
-            <SelectTrigger>
+            <SelectTrigger id={param.id}>
               <SelectValue placeholder={`Select ${param.label}`} />
             </SelectTrigger>
             <SelectContent>
@@ -127,6 +148,28 @@ export default function ConfigPanel({
           )}
         </div>
       </ScrollArea>
+      <div className="p-4 border-t mt-auto">
+      <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button variant="destructive" className="w-full">
+              <Trash2 className="mr-2 h-4 w-4" />
+              Delete Component
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete the component and any connections it has.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
     </aside>
   );
 }

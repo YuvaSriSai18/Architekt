@@ -126,6 +126,12 @@ export default function DashboardPage() {
     }
   };
 
+  const handleDeleteNode = (nodeId: string) => {
+    setNodes((nds) => nds.filter((node) => node.id !== nodeId));
+    setEdges((eds) => eds.filter((edge) => edge.source !== nodeId && edge.target !== nodeId));
+    setSelectedNode(null);
+  };
+
   const handleLoadDesign = async (design: {
     nodes: Node[];
     edges: Edge[];
@@ -234,6 +240,7 @@ export default function DashboardPage() {
             selectedNode={selectedNode}
             onClose={() => setSelectedNode(null)}
             onConfigChange={updateNodeConfig}
+            onDeleteNode={handleDeleteNode}
           />
         </div>
       </div>

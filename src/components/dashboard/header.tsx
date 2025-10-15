@@ -24,7 +24,8 @@ import {
   BrainCircuit,
   LogOut,
   Mountain,
-  User as UserIcon
+  User as UserIcon,
+  MessageSquare,
 } from "lucide-react";
 import Link from "next/link";
 import { doc, setDoc, collection, serverTimestamp } from "firebase/firestore";
@@ -134,6 +135,10 @@ export default function Header({
       </div>
 
       <div className="ml-auto flex items-center gap-4">
+        <Button variant="outline" size="sm">
+            <MessageSquare className="mr-2 h-4 w-4" />
+            Feedback
+        </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="relative h-8 w-8 rounded-full">

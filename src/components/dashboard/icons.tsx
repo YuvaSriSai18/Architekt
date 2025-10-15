@@ -1,4 +1,10 @@
 import type { FC, SVGProps } from "react";
+import {
+    Cloud,
+    KeyRound,
+    ShieldCheck,
+    Container
+} from 'lucide-react';
 
 export const DatabaseIcon: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
@@ -96,4 +102,20 @@ export const WebQueueIcon: FC<SVGProps<SVGSVGElement>> = (props) => (
         <path d="M9 19l-3-3 3-3" />
         <path d="M15 5l3 3-3 3" />
     </svg>
+);
+
+export const CdnIcon: FC<SVGProps<SVGSVGElement>> = (props) => (
+    <Cloud {...props}/>
+);
+
+export const ApiGatewayIcon: FC<SVGProps<SVGSVGElement>> = (props) => (
+    <KeyRound {...props}/>
+);
+
+export const AuthServiceIcon: FC<SVGProps<SVGSVGElement>> = (props) => (
+    <ShieldCheck {...props}/>
+);
+
+export const ObjectStorageIcon: FC<SVGProps<SVGSVGElement>> = (props) => (
+    <Container {...props}/>
 );
